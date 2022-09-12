@@ -45,5 +45,12 @@
       "login": "user4",
       "password": "password4"
     }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Alexandr",
+      "phone": "+888 111 11 11"
+    }
   ]
 }

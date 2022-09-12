@@ -9,7 +9,7 @@ interface Response {
 
 class UserStore {
 
-    private URL_LOGIN_TEMPLATE = 'http://localhost:8000/users'
+    private URL_LOGIN_TEMPLATE = 'http://192.168.1.100:8000/users'
 
     @observable public user: User | null = null
     @observable private userName: string = ''
