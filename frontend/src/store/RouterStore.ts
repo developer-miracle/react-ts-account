@@ -3,7 +3,9 @@ import Home from '../components/pages/Home'
 import SignIn from '../components/pages/SignIn'
 import SignUp from '../components/pages/SignUp'
 import Contacts from '../components/pages/Contacts'
-import { action, makeObservable, observable } from 'mobx'
+import Admin from '../components/pages/admin/AdminPanel'
+import UserStore from './UserStore'
+import { action, makeObservable, observable, reaction } from 'mobx'
 class RouterStore {
 
     private anonymousRoutes: Array<RouteModel> = [
@@ -18,8 +20,8 @@ class RouterStore {
     ]
 
     private adminRoutes: Array<RouteModel> = [
-        { path: '/', name: 'home', visible: true, Component: Home }
-        // TODO: Прописать путь для админки
+        { path: '/', name: 'home', visible: true, Component: Home },
+        { path: '/adminpanel', name: 'admin panel', visible: true, Component: Admin }
     ]
 
     @observable routes: Array<RouteModel> = this.anonymousRoutes
@@ -38,7 +40,20 @@ class RouterStore {
         this.routes = this.adminRoutes
     }
 
-
+    userReaction = reaction(
+        () => UserStore.user,
+        (user) => {
+            if (user) {
+                if (user.roleName.toLowerCase().includes("admin")) {
+                    this.setAdminRoutes()
+                } else {
+                    this.setLoggedRoutes()
+                }
+            } else {
+                this.setAnonymousRoutes()
+            }
+        }
+    )
 }
 
 export { RouterStore }

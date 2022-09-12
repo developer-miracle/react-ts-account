@@ -1,10 +1,10 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
+// import { observable } from 'mobx'
+import { observer } from 'mobx-react'
+import UserStore from '../../store/UserStore'
 
-
-
-
-export default function SignIn() {
+const SignIn = observer(() => {
 
     const [inputLogin, setInputLogin] = useState('')
     const [inputPassword, setInputPassword] = useState('')
@@ -19,19 +19,10 @@ export default function SignIn() {
         setInputPassword(value.value)
     }
 
-    const handlerClick = function (callback: (data: templateResponse) => void): void {
-
+    const handlerClick = (): void => {
+        UserStore.login(inputLogin, inputPassword)
     }
 
-    const callbackCheckPassword = (data: templateResponse): void => {
-        if (data.password === inputPassword) {
-            console.log('log in')
-
-        } else {
-            console.log('incorrect password')
-        }
-
-    }
 
     return (
         <div>
@@ -48,7 +39,9 @@ export default function SignIn() {
                     onInput={element => handlerInputPassword(element)}
                 />
             </div>
-            <Button onClick={() => handlerClick(callbackCheckPassword)} variant="contained">Sign in</Button>
+            <Button onClick={() => handlerClick()} variant="contained">Sign in</Button>
         </div>
     )
-}
+})
+
+export default SignIn

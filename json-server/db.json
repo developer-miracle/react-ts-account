@@ -19,21 +19,29 @@
   "users": [
     {
       "id": 1,
+      "name": "Alexey",
+      "role": "admin",
       "login": "user1",
       "password": "password1"
     },
     {
       "id": 2,
+      "name": "Alice",
+      "role": "user",
       "login": "user2",
       "password": "password2"
     },
     {
       "id": 3,
+      "name": "Vanya",
+      "role": "user",
       "login": "user3",
       "password": "password3"
     },
     {
       "id": 4,
+      "name": "Alexandr",
+      "role": "user",
       "login": "user4",
       "password": "password4"
     }

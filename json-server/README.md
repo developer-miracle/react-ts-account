@@ -1,5 +1,5 @@
-# Start frontend
-npm start
+# Start json-server
+json-server --watch db.json --port 8000
 
 
 
