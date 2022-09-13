@@ -9,17 +9,17 @@ const Header = () => {
     const routes = RouterStore.routes
     return (
         <>
-            {/* <nav>
+            <nav>
                 {routes.map(route => {
                     return <Link key={route.path} to={route.path} style={{ textDecoration: 'none' }}><Button>{route.name}</Button></Link>
                 })}
-            </nav> */}
+            </nav>
 
-            <Tabs aria-label="lab API tabs example">
+            {/* <Tabs aria-label="lab API tabs example">
                 <Tab label="Item One" value="1" />
                 <Tab label="Item Two" value="2" />
                 <Tab label="Item Three" value="3" />
-            </Tabs>
+            </Tabs> */}
         </>
     )
 }

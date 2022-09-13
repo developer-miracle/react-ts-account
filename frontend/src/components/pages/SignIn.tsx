@@ -19,7 +19,7 @@ const styleBox = {
     flexDirection: 'column',
     height: '300px',
     width: '300px',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     border: '1px solid rgba(0,0,0,.2)',
     borderRadius: '10px'
@@ -67,41 +67,58 @@ const SignIn = observer(() => {
     return (
         <Container maxWidth="sm" sx={{
             display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexDirection: 'row',
+            height: '100%',
+            alignItems: 'center'
         }}>
             <Box sx={styleBox}>
                 <Typography variant="h4" component="div">
                     SignIn
                 </Typography>
-                <TextField
-                    label="Login"
-                    id="outlined-start-adornment"
-                    sx={{ m: 1, width: '25ch' }}
-                    onChange={handleChange('userName')}
-                />
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={values.showPassword ? 'text' : 'password'}
-                        value={values.password}
-                        onChange={handleChange('password')}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        label="Password"
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}>
+                    <TextField
+                        label="Login"
+                        id="outlined-start-adornment"
+                        sx={{ m: 1, width: '25ch' }}
+                        onChange={handleChange('userName')}
                     />
-                </FormControl>
-                <Button sx={{ m: 1, width: '25ch' }} onClick={() => handleClick()} color="success" variant="contained">Sign in</Button>
+                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            type={values.showPassword ? 'text' : 'password'}
+                            value={values.password}
+                            onChange={handleChange('password')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Password"
+                        />
+                    </FormControl>
+                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    // justifyContent: 'center',
+                    flexDirection: 'column',
+                    // alignItems: 'center',
+                    height: '60px'
+                }}>
+                    <Button sx={{ m: 1, width: '25ch' }} onClick={() => handleClick()} color="success" variant="contained">Sign in</Button>
+
+                </Box>
             </Box>
         </Container >
     )
