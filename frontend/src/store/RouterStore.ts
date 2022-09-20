@@ -5,7 +5,9 @@ import SignUp from '../components/pages/SignUp'
 import Contacts from '../components/pages/Contacts'
 import Admin from '../components/pages/admin/AdminPanel'
 import UserStore from './UserStore'
+import history from '../history'
 import { action, makeObservable, observable, reaction } from 'mobx'
+
 class RouterStore {
 
     private anonymousRoutes: Array<RouteModel> = [
@@ -48,6 +50,7 @@ class RouterStore {
                     this.setAdminRoutes()
                 } else {
                     this.setLoggedRoutes()
+                    history.replace('/contacts')
                 }
             } else {
                 this.setAnonymousRoutes()

@@ -44,6 +44,32 @@
       "role": "user",
       "login": "user4",
       "password": "password4"
+    },
+    {
+      "login": "user666",
+      "password": "password4",
+      "id": 5
+    },
+    {
+      "name": "QwertyTEST",
+      "role": "user",
+      "login": "user44",
+      "password": "password4",
+      "id": 6
+    },
+    {
+      "name": "TEST",
+      "role": "user",
+      "login": "qwerty",
+      "password": "4444",
+      "id": 7
+    },
+    {
+      "name": "Aleksey",
+      "role": "user",
+      "login": "user44444",
+      "password": "4444",
+      "id": 8
     }
   ],
   "contacts": [

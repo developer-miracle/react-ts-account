@@ -12,8 +12,6 @@ class UserStore {
     private URL_LOGIN_TEMPLATE = 'http://192.168.1.100:8000/users'
 
     @observable public user: User | null = null
-    @observable private userName: string = ''
-    @observable private password: string = ''
 
     constructor() {
         makeObservable(this)
@@ -25,23 +23,8 @@ class UserStore {
         this.user = user
     }
 
-    @action private setUserName(userName: string) {
-        this.userName = userName
-    }
-
-    @action private setPassword(password: string) {
-        this.password = password
-    }
-
-    @action private check() {
-
-    }
-
     @action login(userLogin: string, userPassword: string) {
-        this.setUserName(userLogin)
-        this.setPassword(userPassword)
-
-        let querry: string = `?login=${this.userName}&password=${this.password}`
+        let querry: string = `?login=${userLogin}&password=${userPassword}`
         let path = this.URL_LOGIN_TEMPLATE + querry
         fetch(path)
             .then(response => {
@@ -59,27 +42,49 @@ class UserStore {
                 } else {
                     console.log('error')
                 }
-
             })
-        // fetch(this.URL_LOGIN_TEMPLATE + inputLogin)
-        //     .then(response => {
-        //         if (response.status < 400) return response.json()
-        //         throw new Error(response.status.toString())
-        //     })
-        //     .then(data => {
-
-        //     })
-        //     .catch(error => {
-        //         window.alert(error)
-        //     })
     }
 
     @action logout() {
 
     }
 
-    @action register() {
+    @action register(userName: string, userLogin: string, userPassword: string) {
 
+        let querry: string = `?login=${userLogin}`
+        let path = this.URL_LOGIN_TEMPLATE + querry
+        fetch(path)
+            .then(response => {
+                if (response.statusText === 'OK') return response.json()
+                else console.log(response.statusText)
+            })
+            .then((data) => {
+                if (data) {
+                    if (!data[0]) {
+                        fetch(this.URL_LOGIN_TEMPLATE, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                            },
+                            body: new URLSearchParams({
+                                "name": userName ?? 'unknown',
+                                "role": "user",
+                                'login': userLogin as string,
+                                'password': userPassword as string
+                            })
+                        })
+                            .then(() => {
+                                this.login(userLogin, userPassword)
+                            })
+                    } else {
+                        // console.log('пользователь с таким логином уже существует')
+                    }
+                } else {
+                    console.log('error')
+                }
+            })
     }
 
 }
