@@ -11,7 +11,7 @@ class RouterStore {
     private anonymousRoutes: Array<RouteModel> = [
         { path: '/', name: 'home', visible: true, Component: Home },
         { path: '/signin', name: 'signin', visible: true, Component: SignIn },
-        { path: '/signup', name: 'signup', visible: true, Component: SignUp }
+        { path: '/signup', name: 'signup', visible: true, Component: SignUp },
     ]
 
     private loggedRoutes: Array<RouteModel> = [

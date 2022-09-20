@@ -1,11 +1,11 @@
 import { action, makeObservable, observable } from "mobx"
 import User from '../models/UserModel'
 
-interface Response {
-    id: number,
-    login: string,
-    password: string
-}
+// interface Response {
+//     id: number,
+//     login: string,
+//     password: string
+// }
 
 class UserStore {
 

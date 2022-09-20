@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { observer } from 'mobx-react'
 import UserStore from '../../store/UserStore'
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { display } from "@mui/system";
-
 
 interface State {
     userName: string;
@@ -62,7 +60,6 @@ const SignIn = observer(() => {
     const handleClick = (): void => {
         UserStore.login(values.userName, values.password)
     }
-
 
     return (
         <Container maxWidth="sm" sx={{

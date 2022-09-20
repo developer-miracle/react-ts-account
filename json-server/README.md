@@ -1,6 +1,6 @@
 # Start json-server
 json-server --watch db.json --port 8000
-$ json-server --watch db.json --port 8000 --host 192.168.1.100
+json-server --watch db.json --port 8000 --host 192.168.1.100
 
 
 
