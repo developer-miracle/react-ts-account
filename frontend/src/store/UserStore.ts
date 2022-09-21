@@ -34,10 +34,10 @@ class UserStore {
             .then((data) => {
                 if (data) {
                     if (data[0]) {
-                        // console.log('пользователь найден')
+
                         this.user = new User(data[0].name, data[0].role)
                     } else {
-                        // console.log('пользователь не найден')
+
                     }
                 } else {
                     console.log('error')
