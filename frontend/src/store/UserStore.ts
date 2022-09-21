@@ -19,7 +19,7 @@ class UserStore {
 
     }
 
-    @action private setUser(user: User) {
+    @action private setUser(user: User | null) {
         this.user = user
     }
 
@@ -46,7 +46,7 @@ class UserStore {
     }
 
     @action logout() {
-
+        this.setUser(null)
     }
 
     @action register(userName: string, userLogin: string, userPassword: string) {

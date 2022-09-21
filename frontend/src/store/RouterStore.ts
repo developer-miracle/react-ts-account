@@ -18,12 +18,15 @@ class RouterStore {
 
     private loggedRoutes: Array<RouteModel> = [
         { path: '/', name: 'home', visible: true, Component: Home },
-        { path: '/contacts', name: 'contacts', visible: true, Component: Contacts }
+        { path: '/contacts', name: 'contacts', visible: true, Component: Contacts },
+        { path: '/auth:out', name: 'quit', visible: true, Component: Home }
+
     ]
 
     private adminRoutes: Array<RouteModel> = [
         { path: '/', name: 'home', visible: true, Component: Home },
-        { path: '/adminpanel', name: 'admin panel', visible: true, Component: Admin }
+        { path: '/adminpanel', name: 'admin panel', visible: true, Component: Admin },
+        { path: '/auth:out', name: 'quit', visible: true, Component: Home }
     ]
 
     @observable routes: Array<RouteModel> = this.anonymousRoutes
@@ -46,11 +49,19 @@ class RouterStore {
         () => UserStore.user,
         (user) => {
             if (user) {
+                let signOutRoute
+                if (user.roleName.toLowerCase().includes("admin")) {
+                    signOutRoute = this.adminRoutes.find(route => route['path'].includes('/auth:out'))
+                } else if (user.roleName.toLowerCase().includes("user")) {
+                    signOutRoute = this.loggedRoutes.find(route => route['path'].includes('/auth:out'))
+                }
+                if (signOutRoute) {
+                    signOutRoute['name'] = `${'Quit'.toUpperCase()} (${user.name})`
+                }
                 if (user.roleName.toLowerCase().includes("admin")) {
                     this.setAdminRoutes()
-                } else {
+                } else if (user.roleName.toLowerCase().includes("user")) {
                     this.setLoggedRoutes()
-                    history.replace('/contacts')
                 }
             } else {
                 this.setAnonymousRoutes()
