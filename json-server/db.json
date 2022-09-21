@@ -51,13 +51,6 @@
       "id": 5
     },
     {
-      "name": "QwertyTEST",
-      "role": "user",
-      "login": "user44",
-      "password": "password4",
-      "id": 6
-    },
-    {
       "name": "TEST",
       "role": "user",
       "login": "qwerty",
