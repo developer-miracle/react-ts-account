@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './components/App';
 import { Provider } from 'mobx-react'
 import routerStore from './store/RouterStore'
 import userStore from './store/UserStore'

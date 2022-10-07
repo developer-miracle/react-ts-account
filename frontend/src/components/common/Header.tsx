@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import { Button } from '@mui/material'
-import RouterStore from '../store/RouterStore'
+import RouterStore from '../../store/RouterStore'
 import { observer } from 'mobx-react'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
