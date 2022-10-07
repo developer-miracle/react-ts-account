@@ -1,11 +1,12 @@
 import React from 'react';
-import { Route, Routes } from 'react-router'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import RouterStore from './store/RouterStore';
-
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer';
+import history from './history';
+
 const header = {
   /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
   flex: '0 0 auto'
@@ -19,22 +20,27 @@ const footer = {
   flex: '0 0 auto'
 }
 function App() {
+  const routes = RouterStore.routes
   return (
-    <Router>
+
+    <HistoryRouter history={history}>
       <header style={header}>
         <Header />
       </header>
       <section style={section}>
+
         <Routes>
-          {RouterStore.routes.map(route => {
+          {routes.map(route => {
             return <Route key={route.path} path={route.path} element={<route.Component />}></Route>
           })}
         </Routes>
+
       </section>
       <footer style={footer}>
         <Footer />
       </footer>
-    </Router>
+    </HistoryRouter>
+
   );
 }
 

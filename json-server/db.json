@@ -60,6 +60,20 @@
       "login": "user44444",
       "password": "4444",
       "id": 8
+    },
+    {
+      "name": "qwerty",
+      "role": "user",
+      "login": "123qwerty",
+      "password": "qwerqwer1111",
+      "id": 9
+    },
+    {
+      "name": "hello",
+      "role": "user",
+      "login": "34534534t",
+      "password": "324234e",
+      "id": 10
     }
   ],
   "contacts": [

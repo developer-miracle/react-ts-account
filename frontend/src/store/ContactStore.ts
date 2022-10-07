@@ -1,10 +1,11 @@
 import { makeObservable, observable, action } from "mobx"
 import { json } from "node:stream/consumers"
 import Contact from '../models/ContactModel'
+import CommonStore from "./CommonStore"
 
 class ContactStore {
 
-    private URL: string = 'http://192.168.1.100:8000/contacts'
+    private URL_LOGIN_TEMPLATE = CommonStore.contactBasename
 
     @observable public contacts: Contact[] | null = null
 
@@ -17,7 +18,7 @@ class ContactStore {
     }
 
     @action public getContacts() {
-        fetch(this.URL)
+        fetch(this.URL_LOGIN_TEMPLATE)
             .then(response => {
                 if (response.statusText === 'OK') return response.json()
             })
@@ -31,7 +32,7 @@ class ContactStore {
     }
 
     @action public add(name?: string, phone?: string) {
-        fetch(this.URL, {
+        fetch(this.URL_LOGIN_TEMPLATE, {
             method: 'POST',
             mode: 'no-cors',
             credentials: 'include',
@@ -49,7 +50,7 @@ class ContactStore {
     }
 
     @action public change(id?: number, name?: string, phone?: string) {
-        let path = this.URL + '/' + id
+        let path = this.URL_LOGIN_TEMPLATE + '/' + id
         console.log(path)
         fetch(path, {
             method: 'PATCH',
@@ -68,7 +69,7 @@ class ContactStore {
     }
 
     @action public delete(id: number) {
-        let path = this.URL + '/' + id
+        let path = this.URL_LOGIN_TEMPLATE + '/' + id
         fetch(path, { method: 'DELETE', credentials: 'include' })
             .then(response => {
                 if (response.statusText === 'OK') {

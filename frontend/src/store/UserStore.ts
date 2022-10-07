@@ -1,5 +1,7 @@
 import { action, makeObservable, observable } from "mobx"
 import User from '../models/UserModel'
+import CommonStore from "./CommonStore"
+import history from '../history'
 
 // interface Response {
 //     id: number,
@@ -9,14 +11,17 @@ import User from '../models/UserModel'
 
 class UserStore {
 
-    private URL_LOGIN_TEMPLATE = 'http://192.168.1.100:8000/users'
+    private URL_LOGIN_TEMPLATE = CommonStore.authBasename
 
     @observable public user: User | null = null
 
     constructor() {
         makeObservable(this)
-
-
+        history.listen((location) => {
+            if (location.location.pathname.includes('/auth:out')) {
+                this.logout()
+            }
+        })
     }
 
     @action private setUser(user: User | null) {
@@ -34,8 +39,7 @@ class UserStore {
             .then((data) => {
                 if (data) {
                     if (data[0]) {
-
-                        this.user = new User(data[0].name, data[0].role)
+                        this.setUser(new User(data[0].name, data[0].role))
                     } else {
 
                     }
