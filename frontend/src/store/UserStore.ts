@@ -40,7 +40,7 @@ class UserStore {
                 if (data) {
                     if (data[0]) {
                         this.setUser(new User(data[0].name, data[0].role))
-                        CommonStore.showSuccessMessage('Выполнен вход')
+                        CommonStore.showMessage('Вход выполнен', 'success')
                     } else {
 
                     }

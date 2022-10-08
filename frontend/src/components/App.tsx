@@ -6,14 +6,10 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import Header from './common/Header'
 import Footer from './common/Footer'
 import history from '../history'
-import { Alert, Slide, SlideProps, Snackbar } from '@mui/material';
+import { Alert, AlertColor, Slide, SlideProps, Snackbar } from '@mui/material';
 import CommonStore from '../store/CommonStore';
 
 type TransitionProps = Omit<SlideProps, 'direction'>;
-
-function TransitionUp(props: TransitionProps) {
-  return <Slide {...props} direction="up" />;
-}
 
 const header = {
   /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
@@ -28,6 +24,10 @@ const footer = {
   flex: '0 0 auto'
 }
 
+function TransitionUp(props: TransitionProps) {
+  return <Slide {...props} direction="up" />;
+}
+
 function App() {
 
   const [open, setOpen] = React.useState(false);
@@ -36,28 +36,34 @@ function App() {
     React.ComponentType<TransitionProps> | undefined
   >(undefined);
 
-  const handleClick = (Transition: React.ComponentType<TransitionProps>) => () => {
-    setTransition(() => TransitionUp);
-    setOpen(true);
-  };
+  // const handleClick = (Transition: React.ComponentType<TransitionProps>) => () => {
+  //   setTransition(() => TransitionUp);
+  //   setOpen(true);
+  // };
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
-
-    setOpen(false);
+    console.log('handleClose')
     CommonStore.resetSnackBar()
+    setOpen(CommonStore.flagShowMessage);
   };
 
   const routes = RouterStore.routes
-  const successMessage = CommonStore.successMessage
-  const flagShowSuccessMessage = CommonStore.flagShowSuccessMessage
+
+  const type: AlertColor | undefined = CommonStore.type as AlertColor
+  const message = CommonStore.message
 
   useEffect(() => {
-    setTransition(() => TransitionUp);
-    setOpen(CommonStore.flagShowSuccessMessage);
-  }, [CommonStore.flagShowSuccessMessage])
+    // if (CommonStore.flagShowMessage) {
+    //   setTransition(() => TransitionUp);
+    setOpen(CommonStore.flagShowMessage);
+    // }
+    console.log('useEffect')
+    console.log(CommonStore.flagShowMessage)
+
+  }, [CommonStore.flagShowMessage])
 
   return (
 
@@ -74,7 +80,7 @@ function App() {
         </Routes>
 
       </section>
-      <button onClick={handleClick(TransitionUp)}>click</button>
+      {/* <button onClick={handleClick(TransitionUp)}>click</button> */}
       <footer style={footer}>
         <Footer />
       </footer>
@@ -84,8 +90,8 @@ function App() {
       }}
         TransitionComponent={transition}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          {successMessage}
+        <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
+          {message}
         </Alert>
       </Snackbar>
     </HistoryRouter>

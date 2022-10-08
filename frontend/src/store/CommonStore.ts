@@ -16,18 +16,18 @@ class CommonStore {
     // 'http://192.168.1.100:8000/contacts'
     contactBasename: string = 'http://localhost:8000/contacts'
 
+    public type: string = 'success'
+    public message: string = 'Что-то успешно (проверка)'
+    @observable public flagShowMessage: boolean = false
 
-
-    public successMessage: string = 'Что-то успешно (проверка)'
-    @observable public flagShowSuccessMessage: boolean = false
-
-    @action public showSuccessMessage(text: string) {
-        this.successMessage = text
-        this.flagShowSuccessMessage = true
+    @action public showMessage(text: string, type: string) {
+        this.message = text
+        this.type = type
+        this.flagShowMessage = true
     }
 
     public resetSnackBar() {
-        this.flagShowSuccessMessage = false
+        this.flagShowMessage = false
     }
 
 }
