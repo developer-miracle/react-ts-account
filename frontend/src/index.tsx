@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './components/App';
 import { Provider } from 'mobx-react'
 import routerStore from './store/RouterStore'
 import userStore from './store/UserStore'
+
+
 const stores = {
   routerStore,
   userStore
@@ -14,9 +16,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+
     <Provider {...stores}>
       <App />
     </Provider>
+
+
   </React.StrictMode>
 );
 

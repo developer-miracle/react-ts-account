@@ -1,4 +1,4 @@
-import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from "@mui/material"
+import { Avatar, Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from "@mui/material"
 import React, { useEffect, useState } from "react"
 import contacts from '../../store/ContactStore'
 import { observer } from 'mobx-react'
@@ -22,7 +22,6 @@ const Contacts = () => {
     })
 
     useEffect(() => {
-        console.log('Монтирование')
         contacts.getContacts()
     }, [])
 
@@ -68,6 +67,12 @@ const Contacts = () => {
     }
 
     const data = contacts.contacts
+    let text: string = ''
+    if (values.event === 'add') {
+        text = 'New contact'
+    } else if (values.event === 'change') {
+        text = 'Change contact'
+    }
 
     return (
         <Container>
@@ -78,33 +83,34 @@ const Contacts = () => {
                 flexDirection: 'column'
             }}>
 
+                <Box sx={{ width: '60%', display: 'flex', justifyContent: 'space-around' }}>
+                    <Typography
+                        sx={{
+                            width: '50%',
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
+                        component="span"
+                        variant="h4"
+                        color="text.primary"
+                    >
+                        Contacts
+                    </Typography>
+                    <Box sx={{
+                        width: '50%', display: 'flex',
+                        justifyContent: 'end'
+                    }}><Button onClick={() => handleOpenDialog('add')} variant="contained" color="success">add</Button></Box>
+                </Box>
                 <List sx={{ width: '60%', bgcolor: 'background.paper' }}>
-                    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
-                        <Typography
-                            sx={{
-                                width: '50%',
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}
-                            component="span"
-                            variant="h4"
-                            color="text.primary"
-                        >
-                            Contacts
-                        </Typography>
-                        <Box sx={{
-                            width: '50%', display: 'flex',
-                            justifyContent: 'end'
-                        }}><Button onClick={() => handleOpenDialog('add')} variant="contained" color="success">add</Button></Box>
-                    </Box>
                     {data?.map(element => {
                         return (
                             <ListItem sx={{ padding: '0', margin: '10px 0' }} key={element.id}>
                                 <ListItemAvatar>
-                                    <div style={styleAvatar}></div>
+                                    {/* <div style={styleAvatar}></div> */}
+                                    <Avatar alt={element.name} src="/static/images/avatar/1.jpg" />
                                 </ListItemAvatar>
                                 <ListItemText
-                                    sx={{ margin: 0 }}
+                                    sx={{ margin: 0, minWidth: '180px' }}
                                     primary={element.name}
                                     secondary={
                                         <React.Fragment>
@@ -128,7 +134,9 @@ const Contacts = () => {
                 </List>
             </Box>
             <Dialog open={open} onClose={handleCloseDialog}>
-                <DialogTitle>{values.event === 'add' ? 'New contact' : 'Change contact'}</DialogTitle>
+                <DialogTitle>
+                    {text}
+                </DialogTitle>
                 <DialogContent>
                     <TextField
                         value={values.name}

@@ -1,10 +1,10 @@
 import { makeObservable, observable, action } from "mobx"
-import { json } from "node:stream/consumers"
 import Contact from '../models/ContactModel'
+import CommonStore from "./CommonStore"
 
 class ContactStore {
 
-    private URL: string = 'http://192.168.1.100:8000/contacts'
+    private contactBasename = CommonStore.contactBasename
 
     @observable public contacts: Contact[] | null = null
 
@@ -17,12 +17,14 @@ class ContactStore {
     }
 
     @action public getContacts() {
-        fetch(this.URL)
+        fetch(this.contactBasename)
             .then(response => {
                 if (response.statusText === 'OK') return response.json()
             })
             .then(data => {
                 // this.setContacts(data)
+
+                // TODO: проверка data на существование
                 let res = data.map((element: { id: number; name: string; phone: string }) => {
                     return new Contact(element.id, element.name, element.phone)
                 })
@@ -31,7 +33,7 @@ class ContactStore {
     }
 
     @action public add(name?: string, phone?: string) {
-        fetch(this.URL, {
+        fetch(this.contactBasename, {
             method: 'POST',
             mode: 'no-cors',
             credentials: 'include',
@@ -43,14 +45,18 @@ class ContactStore {
                 'phone': phone as string
             })
         })
+            .then(response => {
+                // TODO: Проверка на успешное добавление контакта
+                CommonStore.showMessage('Контакт успешно добавлен', 'success')
+            })
+
             .finally(() => {
                 this.getContacts()
             })
     }
 
     @action public change(id?: number, name?: string, phone?: string) {
-        let path = this.URL + '/' + id
-        console.log(path)
+        let path = this.contactBasename + '/' + id
         fetch(path, {
             method: 'PATCH',
             credentials: 'include',
@@ -62,18 +68,25 @@ class ContactStore {
                 'phone': phone as string
             })
         })
+            .then(response => {
+                // TODO: Проверка на успешное изменение контакта
+                CommonStore.showMessage('Контакт успешно изменен', 'success')
+            })
             .finally(() => {
                 this.getContacts()
             })
     }
 
     @action public delete(id: number) {
-        let path = this.URL + '/' + id
+        let path = this.contactBasename + '/' + id
         fetch(path, { method: 'DELETE', credentials: 'include' })
             .then(response => {
                 if (response.statusText === 'OK') {
-                    this.getContacts()
+                    CommonStore.showMessage('Контакт успешно удален', 'success')
                 }
+            })
+            .finally(() => {
+                this.getContacts()
             })
     }
 
