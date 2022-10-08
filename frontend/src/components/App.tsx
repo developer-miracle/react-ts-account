@@ -57,7 +57,7 @@ function App() {
 
   useEffect(() => {
     // if (CommonStore.flagShowMessage) {
-    //   setTransition(() => TransitionUp);
+    setTransition(() => TransitionUp);
     setOpen(CommonStore.flagShowMessage);
     // }
     console.log('useEffect')
