@@ -55,15 +55,18 @@ function App() {
   const type: AlertColor | undefined = CommonStore.type as AlertColor
   const message = CommonStore.message
 
-  useEffect(() => {
-    // if (CommonStore.flagShowMessage) {
-    setTransition(() => TransitionUp);
-    setOpen(CommonStore.flagShowMessage);
-    // }
-    console.log('useEffect')
-    console.log(CommonStore.flagShowMessage)
 
-  }, [CommonStore.flagShowMessage])
+
+
+  // useEffect(() => {
+  //   // if (CommonStore.flagShowMessage) {
+  //   setTransition(() => TransitionUp);
+  //   setOpen(CommonStore.flagShowMessage);
+  //   // }
+  //   console.log('useEffect')
+  //   console.log(CommonStore.flagShowMessage)
+
+  // }, [CommonStore.flagShowMessage])
 
   return (
 
