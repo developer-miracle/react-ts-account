@@ -42,10 +42,10 @@ class UserStore {
                         this.setUser(new User(data[0].name, data[0].role))
                         CommonStore.showMessage('Вход выполнен', 'success')
                     } else {
-
+                        CommonStore.showMessage('Не верный логин или пароль', 'error')
                     }
                 } else {
-                    console.log('error')
+                    CommonStore.showMessage('Ошибка', 'error')
                 }
             })
     }

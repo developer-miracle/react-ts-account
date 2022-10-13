@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { observable, action, makeObservable } from 'mobx'
 
 class CommonStore {
     //  URL REST API основной адрес
@@ -20,13 +20,17 @@ class CommonStore {
     public message: string = 'Что-то успешно (проверка)'
     @observable public flagShowMessage: boolean = false
 
+    constructor() {
+        makeObservable(this)
+    }
+
     @action public showMessage(text: string, type: string) {
         this.message = text
         this.type = type
         this.flagShowMessage = true
     }
 
-    public resetSnackBar() {
+    @action public resetSnackBar() {
         this.flagShowMessage = false
     }
 
