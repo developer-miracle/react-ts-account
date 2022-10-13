@@ -74,6 +74,13 @@
       "login": "34534534t",
       "password": "324234e",
       "id": 10
+    },
+    {
+      "name": "Lalatest",
+      "role": "user",
+      "login": "user43",
+      "password": "fdgdfg44",
+      "id": 11
     }
   ],
   "contacts": [

@@ -84,6 +84,7 @@ class UserStore {
                                 this.login(userLogin, userPassword)
                             })
                     } else {
+                        CommonStore.showMessage('Пользователь с таким логином уже существует', 'error')
                         // console.log('пользователь с таким логином уже существует')
                     }
                 } else {
