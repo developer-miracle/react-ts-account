@@ -3,12 +3,6 @@ import User from '../models/UserModel'
 import CommonStore from "./CommonStore"
 import history from '../history'
 
-// interface Response {
-//     id: number,
-//     login: string,
-//     password: string
-// }
-
 class UserStore {
 
     private URL_LOGIN_TEMPLATE = CommonStore.authBasename
@@ -23,6 +17,10 @@ class UserStore {
             }
         })
     }
+
+    // public get contacts() {
+    //     return this.user?.contacts
+    // }
 
     @action private setUser(user: User | null) {
         this.user = user
@@ -39,7 +37,7 @@ class UserStore {
             .then((data) => {
                 if (data) {
                     if (data[0]) {
-                        this.setUser(new User(data[0].name, data[0].role))
+                        this.setUser(new User(data[0].id, data[0].name, data[0].role))
                         CommonStore.showMessage('Вход выполнен', 'success')
                     } else {
                         CommonStore.showMessage('Не верный логин или пароль', 'error')
@@ -92,7 +90,6 @@ class UserStore {
                 }
             })
     }
-
 }
 
 export { UserStore }

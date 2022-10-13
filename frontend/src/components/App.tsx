@@ -6,7 +6,7 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import Header from './common/Header'
 import Footer from './common/Footer'
 import history from '../history'
-import Snackbar from '../components/Snackbar';
+import Snackbar from './common/Snackbar';
 
 const header = {
   /* 0 flex-grow, 0 flex-shrink, auto flex-basis */

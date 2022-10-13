@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite'
 import { Alert, AlertColor, Slide, SlideProps, Snackbar as Snack } from '@mui/material';
 
-import CommonStore from '../store/CommonStore';
+import CommonStore from '../../store/CommonStore';
 
 type TransitionProps = Omit<SlideProps, 'direction'>;
 

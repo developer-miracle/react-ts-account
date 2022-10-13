@@ -1,18 +1,4 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
   "users": [
     {
       "id": 1,
@@ -41,11 +27,6 @@
       "role": "user",
       "login": "user4",
       "password": "password4"
-    },
-    {
-      "login": "user666",
-      "password": "password4",
-      "id": 5
     },
     {
       "name": "TEST",
@@ -85,34 +66,40 @@
   ],
   "contacts": [
     {
-      "id": 1,
-      "name": "Alexandr",
-      "phone": "+888 111 11 11"
+      "name": "Egor1",
+      "phone": "+888 222 22 22",
+      "userId": "4",
+      "id": 1
     },
     {
-      "id": 2,
       "name": "Alice",
-      "phone": "+888 222 22 22"
+      "phone": "+888 222 22 22",
+      "userId": "4",
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "Vanya",
-      "phone": "+888 333 33 33"
+      "name": "fddfgdfgd",
+      "phone": "43545",
+      "userId": "4",
+      "id": 10
     },
     {
-      "id": 4,
-      "name": "Nika",
-      "phone": "+888 444 44 44"
+      "userId": "4",
+      "name": "4werqwerqwr",
+      "phone": "3434 44 44 44",
+      "id": 11
     },
     {
-      "name": "qwerty",
-      "phone": "+888775544",
-      "id": 5
+      "userId": "3",
+      "name": "Alice",
+      "phone": "+ 888 88 88 88",
+      "id": 12
     },
     {
-      "name": "ererer44",
-      "phone": "3444 44",
-      "id": 6
+      "userId": "2",
+      "name": "qwerty2",
+      "phone": "55 44 00 00",
+      "id": 13
     }
   ]
 }

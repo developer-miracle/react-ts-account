@@ -1,8 +1,10 @@
 import { Avatar, Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from "@mui/material"
 import React, { useEffect, useState } from "react"
-import contacts from '../../store/ContactStore'
+import UserStore from '../../store/UserStore'
+import ContactStore from '../../store/ContactStore'
 import { observer } from 'mobx-react'
 import { text } from "stream/consumers";
+import ContactModel from "../../models/ContactModel"
 
 interface State {
     id: number | undefined,
@@ -22,17 +24,8 @@ const Contacts = () => {
     })
 
     useEffect(() => {
-        contacts.getContacts()
+        ContactStore.getContacts()
     }, [])
-
-    const styleAvatar = {
-        marginRight: '20px',
-        border: '1px solid black',
-        borderRadius: '50%',
-        width: '50px',
-        height: '50px',
-        minWidth: '50px'
-    }
 
     const handleOpenDialog = (event: string, id?: number, name?: string, phone?: string) => {
         if (event === 'add') {
@@ -53,20 +46,21 @@ const Contacts = () => {
     }
 
     const handleClickAdd = () => {
-        contacts.add(values.name, values.phone)
+        ContactStore.add(values.name, values.phone, UserStore.user?.id?.toString())
         handleCloseDialog()
     }
 
     const handleClickChange = () => {
-        contacts.change(values.id, values.name, values.phone)
+        ContactStore.change(values.id, values.name, values.phone)
         handleCloseDialog()
     }
 
     const handleClickDelete = (id: number) => {
-        contacts.delete(id)
+        ContactStore.delete(id)
     }
 
-    const data = contacts.contacts
+    const data: ContactModel[] | null = ContactStore.contacts
+
     let text: string = ''
     if (values.event === 'add') {
         text = 'New contact'
@@ -106,7 +100,6 @@ const Contacts = () => {
                         return (
                             <ListItem sx={{ padding: '0', margin: '10px 0' }} key={element.id}>
                                 <ListItemAvatar>
-                                    {/* <div style={styleAvatar}></div> */}
                                     <Avatar alt={element.name} src="/static/images/avatar/1.jpg" />
                                 </ListItemAvatar>
                                 <ListItemText

@@ -3,5 +3,9 @@
   "version": "1.0.0",
   "dependencies": {
     "json-server": "^0.17.0"
+  },
+  "scripts": {
+    "start": "json-server --watch db.json --port 8000",
+    "start2": "json-server --watch db.json --port 8000 --host 192.168.1.100"
   }
 }

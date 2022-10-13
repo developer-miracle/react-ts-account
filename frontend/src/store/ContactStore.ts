@@ -1,46 +1,50 @@
 import { makeObservable, observable, action } from "mobx"
-import Contact from '../models/ContactModel'
+import ContactModel from "../models/ContactModel"
+import UserStore from "../store/UserStore"
 import CommonStore from "./CommonStore"
 
 class ContactStore {
 
-    private contactBasename = CommonStore.contactBasename
-
-    @observable public contacts: Contact[] | null = null
+    @observable public contacts: ContactModel[] | null = null
 
     constructor() {
         makeObservable(this)
     }
 
-    @action public setContacts(contacts: Contact[]) {
+    @action public setContacts(contacts: ContactModel[] | null) {
         this.contacts = contacts
     }
 
-    @action public getContacts() {
-        fetch(this.contactBasename)
+    public getContacts() {
+        const querry = `${CommonStore.contactBasename}?userId=${UserStore.user?.id}`
+        fetch(querry)
             .then(response => {
                 if (response.statusText === 'OK') return response.json()
             })
             .then(data => {
-                // this.setContacts(data)
-
-                // TODO: проверка data на существование
-                let res = data.map((element: { id: number; name: string; phone: string }) => {
-                    return new Contact(element.id, element.name, element.phone)
-                })
-                this.contacts = res
+                if (data.length !== 0) {
+                    let res: ContactModel[] = data.map((element: { id: number; name: string; phone: string }) => {
+                        return new ContactModel(element.id, element.name, element.phone)
+                    })
+                    this.setContacts(res)
+                } else {
+                    this.setContacts(null)
+                }
             })
     }
 
-    @action public add(name?: string, phone?: string) {
-        fetch(this.contactBasename, {
+    @action public add(name?: string, phone?: string, userId?: string) {
+        let querry = `${CommonStore.contactBasename}`
+        fetch(querry, {
             method: 'POST',
             mode: 'no-cors',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                'Content-Type': 'application/json;charset=UTF-8'
             },
             body: new URLSearchParams({
+                'userId': userId as string,
                 'name': name as string,
                 'phone': phone as string
             })
@@ -56,7 +60,7 @@ class ContactStore {
     }
 
     @action public change(id?: number, name?: string, phone?: string) {
-        let path = this.contactBasename + '/' + id
+        let path = CommonStore.contactBasename + '/' + id
         fetch(path, {
             method: 'PATCH',
             credentials: 'include',
@@ -78,7 +82,7 @@ class ContactStore {
     }
 
     @action public delete(id: number) {
-        let path = this.contactBasename + '/' + id
+        let path = CommonStore.contactBasename + '/' + id
         fetch(path, { method: 'DELETE', credentials: 'include' })
             .then(response => {
                 if (response.statusText === 'OK') {
