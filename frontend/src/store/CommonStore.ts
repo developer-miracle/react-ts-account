@@ -3,6 +3,8 @@ import { observable, action, makeObservable } from 'mobx'
 class CommonStore {
     //  URL REST API основной адрес
 
+    messageError = 'Ой! Что-то пошло не так.'
+
     frontendIp: string = ''
     backandIp: string = ''
 

@@ -5,8 +5,6 @@ import history from '../history'
 
 class UserStore {
 
-    private URL_LOGIN_TEMPLATE = CommonStore.authBasename
-
     @observable public user: User | null = null
 
     constructor() {
@@ -18,17 +16,25 @@ class UserStore {
         })
     }
 
-    // public get contacts() {
-    //     return this.user?.contacts
-    // }
-
     @action private setUser(user: User | null) {
         this.user = user
     }
 
+    check() {
+        let querry = `http://localhost:8000/currentuser/1`
+        fetch(querry)
+            .then(response => {
+                if (response.statusText === 'OK') return response.json()
+                else console.log(response.statusText)
+            })
+            .then(data => {
+                console.log(data)
+            })
+    }
+
     @action login(userLogin: string, userPassword: string) {
         let querry: string = `?login=${userLogin}&password=${userPassword}`
-        let path = this.URL_LOGIN_TEMPLATE + querry
+        let path = CommonStore.authBasename + querry
         fetch(path)
             .then(response => {
                 if (response.statusText === 'OK') return response.json()
@@ -43,7 +49,7 @@ class UserStore {
                         CommonStore.showMessage('Не верный логин или пароль', 'error')
                     }
                 } else {
-                    CommonStore.showMessage('Ошибка', 'error')
+                    CommonStore.showMessage(CommonStore.messageError, 'error')
                 }
             })
     }
@@ -55,7 +61,7 @@ class UserStore {
     @action register(userName: string, userLogin: string, userPassword: string) {
 
         let querry: string = `?login=${userLogin}`
-        let path = this.URL_LOGIN_TEMPLATE + querry
+        let path = CommonStore.authBasename + querry
         fetch(path)
             .then(response => {
                 if (response.statusText === 'OK') return response.json()
@@ -64,7 +70,7 @@ class UserStore {
             .then((data) => {
                 if (data) {
                     if (!data[0]) {
-                        fetch(this.URL_LOGIN_TEMPLATE, {
+                        fetch(CommonStore.authBasename, {
                             method: 'POST',
                             mode: 'no-cors',
                             credentials: 'include',
@@ -83,10 +89,9 @@ class UserStore {
                             })
                     } else {
                         CommonStore.showMessage('Пользователь с таким логином уже существует', 'error')
-                        // console.log('пользователь с таким логином уже существует')
                     }
                 } else {
-                    console.log('error')
+                    CommonStore.showMessage(CommonStore.messageError, 'error')
                 }
             })
     }

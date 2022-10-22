@@ -1,4 +1,10 @@
 {
+  "currentuser": [
+    {
+      "login": "test3",
+      "id": 1
+    }
+  ],
   "users": [
     {
       "id": 1,
@@ -62,11 +68,18 @@
       "login": "user43",
       "password": "fdgdfg44",
       "id": 11
+    },
+    {
+      "name": "Test",
+      "role": "user",
+      "login": "test",
+      "password": "test",
+      "id": 12
     }
   ],
   "contacts": [
     {
-      "name": "Egor1",
+      "name": "Egor",
       "phone": "+888 222 22 22",
       "userId": "4",
       "id": 1
@@ -78,15 +91,15 @@
       "id": 2
     },
     {
-      "name": "fddfgdfgd",
+      "name": "asdf",
       "phone": "43545",
       "userId": "4",
       "id": 10
     },
     {
       "userId": "4",
-      "name": "4werqwerqwr",
-      "phone": "3434 44 44 44",
+      "name": "4www",
+      "phone": "3434 44 44 40",
       "id": 11
     },
     {
@@ -100,6 +113,18 @@
       "name": "qwerty2",
       "phone": "55 44 00 00",
       "id": 13
+    },
+    {
+      "userId": "1",
+      "name": "Admin",
+      "phone": "+000 00 00 00",
+      "id": 14
+    },
+    {
+      "userId": "12",
+      "name": "test",
+      "phone": "+ 000 00",
+      "id": 15
     }
   ]
 }

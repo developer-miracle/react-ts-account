@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import RouterStore from '../store/RouterStore';
@@ -7,6 +7,7 @@ import Header from './common/Header'
 import Footer from './common/Footer'
 import history from '../history'
 import Snackbar from './common/Snackbar';
+import UserStore from '../store/UserStore';
 
 const header = {
   /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
@@ -21,8 +22,16 @@ const footer = {
   flex: '0 0 auto'
 }
 
+
+
 function App() {
+
+  useEffect(() => {
+    UserStore.check()
+  }, [])
+
   const routes = RouterStore.routes
+
   return (
     <HistoryRouter history={history}>
       <header style={header}>

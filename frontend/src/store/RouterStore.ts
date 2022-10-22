@@ -29,6 +29,7 @@ class RouterStore {
 
     private adminRoutes: Array<RouteModel> = [
         { path: '/', name: 'home', visible: true, Component: Home },
+        { path: '/contacts', name: 'contacts', visible: true, Component: Contacts },
         { path: '/adminpanel', name: 'admin panel', visible: true, Component: Admin },
         { path: '/auth:out', name: 'quit', visible: true, Component: Authout },
         { path: '*', name: 'notfound', visible: false, Component: NotFound }
