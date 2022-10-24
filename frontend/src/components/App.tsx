@@ -31,7 +31,6 @@ function App() {
   }, [])
 
   const routes = RouterStore.routes
-  const routes2 = RouterStore.routes
 
   return (
     <HistoryRouter history={history}>
