@@ -45,6 +45,7 @@ class UserStore {
                     if (data[0]) {
                         this.setUser(new User(data[0].id, data[0].name, data[0].role))
                         CommonStore.showMessage('Вход выполнен', 'success')
+                        CommonStore.showMessage('Вход выполнен', 'success')
                     } else {
                         CommonStore.showMessage('Не верный логин или пароль', 'error')
                     }
