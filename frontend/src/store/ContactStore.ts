@@ -87,7 +87,6 @@ class ContactStore {
             .then(response => {
                 if (response.statusText === 'OK') {
                     CommonStore.showMessage('Контакт успешно удален', 'success')
-                    CommonStore.showMessage('Контакт успешно удален', 'success')
                 }
             })
             .finally(() => {
